@@ -62,9 +62,29 @@ def listar_libros(biblioteca):
 
 # TODO: Implementar función de menú de búsqueda de libro por ISBN, título o autor
 def buscar_libro(biblioteca):
-    print("1. Buscar por ISBN")
-    print("2. Buscar por título")
-    print("3. Buscar por autor")
+    while True:
+        print("1. Buscar por ISBN")
+        print("2. Buscar por título")
+        print("3. Buscar por autor")
+        print("0. Volver al menú principal")
+        opcion = input("Selecciona el tipo de búsqueda: ").strip()
+        if opcion == "1":
+            isbn = input("Ingrese el ISBN: ").strip()
+            libro = biblioteca.buscar_libro_por_isbn(isbn)
+            pass
+        elif opcion == "2":
+            titulo = input("Ingrese el título: ").strip()
+            pass
+        elif opcion == "3":
+            autor = input("Ingrese el autor: ").strip()
+            pass
+        elif opcion == "0":
+            break
+        else:
+            print("Opción inválida. Intentalo de nuevo.")
+
+
+
 def main():
     biblioteca = Biblioteca()
 

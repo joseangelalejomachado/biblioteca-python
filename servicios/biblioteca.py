@@ -1,3 +1,6 @@
+from modelos.prestamo import Prestamo
+from datetime import date
+
 class Biblioteca:
     def __init__(self):
         self.usuarios = []
@@ -44,7 +47,7 @@ class Biblioteca:
         La lista vacía equivale a None en el contexto de la función que llama este método.
         Equivale también a False."""
         return self.libros
-    # Métodos para USUARIOS
+    # MÉTODOS PARA USUARIOS
     def buscar_usuario(self, id_usuario):
         """Devuelve el objeto usuario si lo encuentra. Devuelve None si no lo encuentra.
         La búsqueda será por coincidencia exacta del identificador"""
@@ -57,4 +60,26 @@ class Biblioteca:
             return False
         self.usuarios.append(usuario)
         return True
+    # MÉTODOS PARA PRESTAMOS
+    def buscar_prestamo_activo(self, isbn):
+        """Método auxiliar para buscar préstamos activos de un libro por ISBN
+        Tiene en cuenta que el préstamo esté activo y que el ISBN coincida exactamente."""
+        for prestamo in self.prestamos:
+            if prestamo.libro.isbn == isbn and prestamo.activo:
+                return prestamo
+        return None
+    def realizar_prestamo(self, usuario, libro):
+        if usuario is None or libro is None:
+            return False
     
+        if not libro.disponible:
+            return False
+    
+        if self.buscar_prestamo_activo(libro.isbn) is not None:
+            return False
+    
+        prestamo = Prestamo(usuario, libro)
+        self.prestamos.append(prestamo)
+        libro.disponible = False
+    
+        return True

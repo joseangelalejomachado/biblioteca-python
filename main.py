@@ -105,6 +105,34 @@ def mostrar_resultados(libros):
     else:
         print("No se encontraron libros.")
 
+def realizar_prestamo(biblioteca):
+    id_usuario = input("Ingrese el ID del usuario: ").strip()
+    isbn = input("Ingrese el ISBN del libro: ").strip()
+
+    if not id_usuario or not isbn:
+        print("El ID del usuario y el ISBN son obligatorios.")
+        return
+
+    usuario = biblioteca.buscar_usuario(id_usuario)
+    if usuario is None:
+        print("El usuario no existe.")
+        return
+
+    libro = biblioteca.buscar_libro_por_isbn(isbn)
+    if libro is None:
+        print("El libro no existe.")
+        return
+
+    if not libro.disponible:
+        print("El libro no está disponible.")
+        return
+
+    realizado = biblioteca.realizar_prestamo(usuario, libro)
+
+    if realizado:
+        print("Préstamo realizado correctamente.")
+    else:
+        print("No se pudo realizar el préstamo.")
 
 def main():
     biblioteca = Biblioteca()
@@ -126,6 +154,7 @@ def main():
             listar_libros(biblioteca)
         elif opcion == 5:
             print(f"\n5. Realizar préstamo")
+            realizar_prestamo(biblioteca)
         elif opcion == 6:
             print(f"\n6. Registrar devolución")
         elif opcion == 7:

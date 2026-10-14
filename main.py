@@ -43,18 +43,18 @@ def main():
         opcion = menu()
 
         if opcion == 1:
-            print("\n1 --- Registrar libro ---")
+            print("\n1. Registrar libro ---")
             registrar_libro(biblioteca)
         elif opcion == 2:
-            pass
+            print(f"\n2. Registrar usuario")
         elif opcion == 3:
-            pass
+            print(f"\n3. Buscar libro")
         elif opcion == 4:
-            pass
+            print(f"\n4. Listar libros")
         elif opcion == 5:
-            pass
+            print(f"\n5. Realizar préstamo")
         elif opcion == 6:
-            pass
+            print(f"\n6. Registrar devolución")
         elif opcion == 7:
             pass
         elif opcion == 8:

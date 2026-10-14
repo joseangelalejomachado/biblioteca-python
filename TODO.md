@@ -3,7 +3,8 @@
 ## Para día 15/10/2026
 
 - TODO: En main hasta la opción 6
-- FIX: Al ejecutar `main.py` en opción 1 se genera un error `ValueError: invalid literal for int() with base 10: ''` al ingresar un año vacío, está intentando convertir un string vacío a entero.
+- DONE: Se ha modificado comprobación a método de registro de libro para considerar cuando no se ingrese nada.
+  - Al ejecutar `main.py` en opción 1 se genera un error `ValueError: invalid literal for int() with base 10: ''` al ingresar un año vacío, está intentando convertir un string vacío a entero.
   
 ```gitbash
 =================================

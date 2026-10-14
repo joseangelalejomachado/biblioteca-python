@@ -26,7 +26,7 @@ def registrar_libro(biblioteca):
     autor = input("Ingrese el autor del libro: ").strip()
     genero = input("Ingrese el género del libro: ").strip()
     anio_texto = input("Ingrese el año de publicación del libro (opcional): ").strip()
-    anio = int(anio_texto) if anio_texto is not None else None 
+    anio = int(anio_texto) if (anio_texto is not None and anio_texto !='') else None 
 
     libro = Libro(isbn, titulo, autor, genero, anio)
     biblioteca.registrar_libro(libro)

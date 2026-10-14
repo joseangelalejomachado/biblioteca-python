@@ -36,6 +36,19 @@ def registrar_libro(biblioteca):
     else:
         print(f"Ya existe un libro con el ISBN {isbn}.")
 
+def registrar_usuario(biblioteca):
+    id_usuario = input("Ingrese el ID del usuario: ").strip()
+    nombre = input("Ingrese el nombre: ").strip()
+    apellidos = input("Ingrese los apellidos: ").strip()
+    email = input("Ingrese el email: ").strip()
+
+    usuario = Usuario(id_usuario, nombre, apellidos, email)
+    registrado = biblioteca.registrar_usuario(usuario)
+    if registrado:
+        print(f"\nUsuario registrado exitosamente:\n{usuario}")
+    else:
+        print(f"Ya existe un usuario con el ID {id_usuario}.")
+
 def main():
     biblioteca = Biblioteca()
 
@@ -47,6 +60,7 @@ def main():
             registrar_libro(biblioteca)
         elif opcion == 2:
             print(f"\n2. Registrar usuario")
+            registrar_usuario(biblioteca)
         elif opcion == 3:
             print(f"\n3. Buscar libro")
         elif opcion == 4:

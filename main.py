@@ -47,14 +47,16 @@ def registrar_usuario(biblioteca):
     if registrado:
         print(f"\nUsuario registrado exitosamente:\n{usuario}")
     else:
+        print("---------")
         print(f"Ya existe un usuario con el ID {id_usuario}.")
 
 def listar_libros(biblioteca):
     libros = biblioteca.listar_libros()
     if libros:
-        print("\nLibros registrados:")
+        print("\nLIBROS REGISTRADOS:")
         for libro in libros:
             print(libro)
+            print("---------")
     else:
         print("No hay libros registrados.")
 

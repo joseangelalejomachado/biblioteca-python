@@ -14,12 +14,16 @@ class Biblioteca:
     # Métodos de búsqueda de libros
     def buscar_libro_por_isbn(self, isbn):
         """Busqueda de libro por ISBN por coincidencia exacta"""
+        if not isbn:    # Protección por si el ISBN recibido es una cadena vacía
+            return None
         for libro in self.libros:
             if libro.isbn == isbn:
                 return libro
         return None
     def buscar_libros_por_titulo(self, titulo):
         """Búsqueda de libros por título por coincidencia parcial (case insensitive)"""
+        if not titulo:  # Protección para título vacío.
+            return []
         resultados = []
         for libro in self.libros:
             if titulo.casefold() in libro.titulo.casefold():
@@ -27,6 +31,8 @@ class Biblioteca:
         return resultados
     def buscar_libros_por_autor(self, autor):
         """Búsqueda de libros por autor con coincidencia parcial (case insensitive)"""
+        if not autor:   # Protección para autor vacío.
+            return []
         resultados = []
         for libro in self.libros:
             if autor.casefold() in libro.autor.casefold():

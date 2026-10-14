@@ -1,5 +1,6 @@
 class Libro:
     def __init__(self, isbn, titulo, autor, genero, anio=None, disponible=True):
+        """El atributo ISBN se utilizará como identificador único del libro."""
         self.isbn = isbn
         self.titulo = titulo
         self.autor = autor

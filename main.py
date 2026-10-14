@@ -60,6 +60,11 @@ def listar_libros(biblioteca):
     else:
         print("No hay libros registrados.")
 
+# TODO: Implementar función de menú de búsqueda de libro por ISBN, título o autor
+def buscar_libro(biblioteca):
+    print("1. Buscar por ISBN")
+    print("2. Buscar por título")
+    print("3. Buscar por autor")
 def main():
     biblioteca = Biblioteca()
 
@@ -74,6 +79,7 @@ def main():
             registrar_usuario(biblioteca)
         elif opcion == 3:
             print(f"\n3. Buscar libro")
+            buscar_libro(biblioteca)
         elif opcion == 4:
             print(f"\n4. Listar libros")
             listar_libros(biblioteca)

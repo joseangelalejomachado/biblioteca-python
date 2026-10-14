@@ -3,7 +3,7 @@ class Biblioteca:
         self.usuarios = []
         self.libros = []
         self.prestamos = []
-
+    # Métodos para LIBROS
     def registrar_libro(self, libro):
         if self.buscar_libro(libro) is not None:
             return False
@@ -15,14 +15,18 @@ class Biblioteca:
             if libro.__eq__(libro_nuevo):
                 return libro
         return None
+    # Método para listar los libros registrados
+    def listar_libros(self):
+        return self.libros  # Si no hay libros se devuelve vacia ([] equivale a None)
     # Métodos para USUARIOS
     def buscar_usuario(self, id_usuario): # Busqueda de usuario SOLO por identificador
         for usuario in self.usuarios:
-            if usuario.id_usuario == id_usuario:
+            if usuario.id == id_usuario:
                 return usuario
         return None
     def registrar_usuario(self, usuario):   # Si el usuario existe devuelve False. Si no existe, se registra y devuelve True
-        if self.buscar_usuario(usuario.id_usuario) is not None:
+        if self.buscar_usuario(usuario.id) is not None:
             return False
         self.usuarios.append(usuario)
         return True
+    

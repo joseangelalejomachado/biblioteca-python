@@ -84,6 +84,7 @@ def buscar_libro(biblioteca):
             libros = biblioteca.buscar_libros_por_autor(autor)
             mostrar_resultados(libros)
         elif opcion == "0":
+            print("Volviendo al menú principal...")
             break
         else:
             print("Tipo de búsqueda no válida. Intentalo de nuevo.")

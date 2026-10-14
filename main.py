@@ -134,6 +134,20 @@ def realizar_prestamo(biblioteca):
     else:
         print("No se pudo realizar el préstamo.")
 
+def registrar_devolucion(biblioteca):
+    isbn = input("Ingrese el ISBN del libro: ").strip()
+
+    if not isbn:
+        print("El ISBN no puede estar vacío.")
+        return
+
+    registrado = biblioteca.registrar_devolucion(isbn)
+
+    if registrado:
+        print("Devolución registrada correctamente.")
+    else:
+        print("No se pudo registrar la devolución.")
+
 def main():
     biblioteca = Biblioteca()
 
@@ -157,6 +171,7 @@ def main():
             realizar_prestamo(biblioteca)
         elif opcion == 6:
             print(f"\n6. Registrar devolución")
+            registrar_devolucion(biblioteca)
         elif opcion == 7:
             pass
         elif opcion == 8:

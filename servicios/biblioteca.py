@@ -13,7 +13,7 @@ class Biblioteca:
         if self.buscar_libro_por_isbn(libro.isbn) is not None:
             return False
         self.libros.append(libro)
-        return True
+        return True 
     # Métodos de búsqueda de libros
     def buscar_libro_por_isbn(self, isbn):
         """Busqueda de libro por ISBN por coincidencia exacta"""
@@ -71,15 +71,27 @@ class Biblioteca:
     def realizar_prestamo(self, usuario, libro):
         if usuario is None or libro is None:
             return False
-    
         if not libro.disponible:
             return False
-    
         if self.buscar_prestamo_activo(libro.isbn) is not None:
             return False
-    
+
         prestamo = Prestamo(usuario, libro)
         self.prestamos.append(prestamo)
         libro.disponible = False
-    
+        return True
+    def registrar_devolucion(self, isbn):
+        libro = self.buscar_libro_por_isbn(isbn)
+
+        if libro is None:
+            return False
+
+        prestamo = self.buscar_prestamo_activo(isbn)
+
+        if prestamo is None:
+            return False
+
+        prestamo.fecha_devolucion = date.today()
+        libro.disponible = True
+
         return True

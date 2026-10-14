@@ -3,13 +3,13 @@ class Biblioteca:
         self.usuarios = []
         self.libros = []
         self.prestamos = []
-    # Métodos para LIBROS
+    # MÉTODOS PARA LIBROS
     def registrar_libro(self, libro):
         if self.buscar_libro_por_isbn(libro.isbn) is not None:
             return False
         self.libros.append(libro)
         return True
-    
+    # Métodos de búsqueda de libros
     def buscar_libro_por_isbn(self, isbn):
         for libro in self.libros:
             if libro.isbn == isbn:
@@ -18,10 +18,17 @@ class Biblioteca:
     # TODO: Desarrollador métodos de busqueda por titulo y autor
     def buscar_libros_por_titulo(self, titulo):
         resultados = []
-        pass
+        for libro in self.libros:
+            if titulo.lower() == libro.titulo.lower():
+                resultados.append(libro)
+        return resultados
+        
     def buscar_libros_por_autor(self, autor):
         resultados = []
-        pass
+        for libro in self.libros:
+            if autor.lower() == libro.autor.lower():
+                resultados.append(libro)
+        return resultados
     # Método para listar los libros registrados
     def listar_libros(self):
         return self.libros  # Si no hay libros se devuelve vacia ([] equivale a None)

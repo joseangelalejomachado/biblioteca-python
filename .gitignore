@@ -1,0 +1,8 @@
+# gitignore básico proveído por profesor
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.idea/
+.vscode/

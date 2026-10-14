@@ -71,18 +71,30 @@ def buscar_libro(biblioteca):
         if opcion == "1":
             isbn = input("Ingrese el ISBN: ").strip()
             libro = biblioteca.buscar_libro_por_isbn(isbn)
-            pass
+            if libro:
+                print(f"\nLibro encontrado:\n{libro}")
+            else:
+                print(f"No se encontró un libro con el ISBN {isbn}.")
         elif opcion == "2":
             titulo = input("Ingrese el título: ").strip()
-            pass
+            libros = biblioteca.buscar_libros_por_titulo(titulo)
+            mostrar_resultados(libros)
         elif opcion == "3":
             autor = input("Ingrese el autor: ").strip()
-            pass
+            libros = biblioteca.buscar_libros_por_autor(autor)
+            mostrar_resultados(libros)
         elif opcion == "0":
             break
         else:
-            print("Opción inválida. Intentalo de nuevo.")
+            print("Tipo de búsqueda no válida. Intentalo de nuevo.")
 
+def mostrar_resultados(libros):
+    """Función auxiliar para mostrar resultados de búsquedas en 'buscar_libro(biblioteca)'"""
+    if libros:
+        for libro in libros:
+            print(f"\n{libro}")
+    else:
+        print("No se encontraron libros.")
 
 
 def main():

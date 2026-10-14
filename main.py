@@ -49,6 +49,15 @@ def registrar_usuario(biblioteca):
     else:
         print(f"Ya existe un usuario con el ID {id_usuario}.")
 
+def listar_libros(biblioteca):
+    libros = biblioteca.listar_libros()
+    if libros:
+        print("\nLibros registrados:")
+        for libro in libros:
+            print(libro)
+    else:
+        print("No hay libros registrados.")
+
 def main():
     biblioteca = Biblioteca()
 
@@ -65,6 +74,7 @@ def main():
             print(f"\n3. Buscar libro")
         elif opcion == 4:
             print(f"\n4. Listar libros")
+            listar_libros(biblioteca)
         elif opcion == 5:
             print(f"\n5. Realizar préstamo")
         elif opcion == 6:

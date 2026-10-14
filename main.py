@@ -3,6 +3,25 @@ from modelos.prestamo import Prestamo
 from modelos.usuario import Usuario
 from servicios.biblioteca import Biblioteca
 
+def pedir_texto_obligatorio(mensaje):
+    while True:
+        valor = input(mensaje).strip()
+        if valor:
+            return valor
+        print("Este campo no puede estar vacío.")
+
+def pedir_anio():
+    while True:
+        anio_texto = input("Ingrese el año de publicación del libro como número (opcional): ").strip()
+
+        if not anio_texto:
+            return None
+
+        try:
+            return int(anio_texto)
+        except ValueError:
+            print("El año debe ser un número entero.")
+
 def menu():
     print(f"\n=================================")
     print(f"    GESTION DE BIBLIOTECA   ")
@@ -17,17 +36,21 @@ def menu():
     print(f"    8. Mostrar préstamos de un usuario")
     print(f"    9. Guardar datos")
     print(f"    0. Salir")
-    opcion = int(input("\nSeleccione una opción: "))
-    return opcion
+    while True:
+        try:
+            opcion = int(input("\nSeleccione una opción: "))
+            if 0 <= opcion <= 9:
+                return opcion
+            print("Opción inválida. Introduzca un número del 0 al 9.")
+        except ValueError:
+            print("Opción inválida. Introduzca un número del 0 al 9.")
 
 def registrar_libro(biblioteca):
-    isbn = input("Ingrese el ISBN del libro: ").strip()
-    titulo = input("Ingrese el título del libro: ").strip()
-    autor = input("Ingrese el autor del libro: ").strip()
-    genero = input("Ingrese el género del libro: ").strip()
-    anio_texto = input("Ingrese el año de publicación del libro como numero (opcional): ").strip()
-    
-    anio = int(anio_texto) if anio_texto != "" else None 
+    isbn = pedir_texto_obligatorio("Ingrese el ISBN del libro: ")
+    titulo = pedir_texto_obligatorio("Ingrese el título del libro: ")
+    autor = pedir_texto_obligatorio("Ingrese el autor del libro: ")
+    genero = pedir_texto_obligatorio("Ingrese el género del libro: ")
+    anio = pedir_anio()
 
     libro = Libro(isbn, titulo, autor, genero, anio)
     registrado = biblioteca.registrar_libro(libro)
@@ -37,10 +60,10 @@ def registrar_libro(biblioteca):
         print(f"Ya existe un libro con el ISBN {isbn}.")
 
 def registrar_usuario(biblioteca):
-    id_usuario = input("Ingrese el ID del usuario: ").strip()
-    nombre = input("Ingrese el nombre: ").strip()
-    apellidos = input("Ingrese los apellidos: ").strip()
-    email = input("Ingrese el email: ").strip()
+    id_usuario = pedir_texto_obligatorio("Ingrese el ID del usuario: ")
+    nombre = pedir_texto_obligatorio("Ingrese el nombre: ")
+    apellidos = pedir_texto_obligatorio("Ingrese los apellidos: ")
+    email = pedir_texto_obligatorio("Ingrese el email: ")
 
     usuario = Usuario(id_usuario, nombre, apellidos, email)
     registrado = biblioteca.registrar_usuario(usuario)
@@ -106,12 +129,8 @@ def mostrar_resultados(libros):
         print("No se encontraron libros.")
 
 def realizar_prestamo(biblioteca):
-    id_usuario = input("Ingrese el ID del usuario: ").strip()
-    isbn = input("Ingrese el ISBN del libro: ").strip()
-
-    if not id_usuario or not isbn:
-        print("El ID del usuario y el ISBN son obligatorios.")
-        return
+    id_usuario = pedir_texto_obligatorio("Ingrese el ID del usuario: ")
+    isbn = pedir_texto_obligatorio("Ingrese el ISBN del libro: ")
 
     usuario = biblioteca.buscar_usuario(id_usuario)
     if usuario is None:
@@ -135,11 +154,7 @@ def realizar_prestamo(biblioteca):
         print("No se pudo realizar el préstamo.")
 
 def registrar_devolucion(biblioteca):
-    isbn = input("Ingrese el ISBN del libro: ").strip()
-
-    if not isbn:
-        print("El ISBN no puede estar vacío.")
-        return
+    isbn = pedir_texto_obligatorio("Ingrese el ISBN del libro: ")
 
     registrado = biblioteca.registrar_devolucion(isbn)
 

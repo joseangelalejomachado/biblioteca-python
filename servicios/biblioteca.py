@@ -11,8 +11,12 @@ class Biblioteca:
     def registrar_libro(self, libro):
         """Este método realiza una comprobación por ISBN llamando al método de busqueda por isbn.
         Si el libro existe devuelve False. Si no existe, se registra y devuelve True"""
+        if libro is None:
+            return False
+
         if self.buscar_libro_por_isbn(libro.isbn) is not None:
             return False
+
         self.libros.append(libro)
         return True
 
@@ -67,8 +71,12 @@ class Biblioteca:
     # MÉTODOS PARA USUARIOS
     def registrar_usuario(self, usuario):
         """Registra un usuario si su identificador todavía no existe."""
+        if usuario is None:
+            return False
+    
         if self.buscar_usuario(usuario.id) is not None:
             return False
+    
         self.usuarios.append(usuario)
         return True
 

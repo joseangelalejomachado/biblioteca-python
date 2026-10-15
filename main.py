@@ -1,8 +1,8 @@
 from modelos.libro import Libro
-from modelos.prestamo import Prestamo
 from modelos.usuario import Usuario
 from servicios.biblioteca import Biblioteca
 
+# ENTRADA Y VALIDACIÓN
 def pedir_texto_obligatorio(mensaje):
     while True:
         valor = input(mensaje).strip()
@@ -21,6 +21,17 @@ def pedir_anio():
             print("El año debe ser positivo.")
         except ValueError:
             print("El año debe ser un número entero.")
+
+def pedir_email():
+    while True:
+        email = pedir_texto_obligatorio("Ingrese el email: ")
+
+        partes = email.split("@")
+
+        if len(partes) == 2 and partes[0] and "." in partes[1]:
+            return email
+
+        print("Introduzca un email válido.")
 
 def menu():
     print(f"\n=================================")
@@ -45,6 +56,7 @@ def menu():
         except ValueError:
             print("Opción inválida. Introduzca un número del 0 al 9.")
 
+# LIBROS
 def registrar_libro(biblioteca):
     isbn = pedir_texto_obligatorio("Ingrese el ISBN del libro: ")
     titulo = pedir_texto_obligatorio("Ingrese el título del libro: ")
@@ -63,7 +75,7 @@ def registrar_usuario(biblioteca):
     id_usuario = pedir_texto_obligatorio("Ingrese el ID del usuario: ")
     nombre = pedir_texto_obligatorio("Ingrese el nombre: ")
     apellidos = pedir_texto_obligatorio("Ingrese los apellidos: ")
-    email = pedir_texto_obligatorio("Ingrese el email: ")
+    email = pedir_email()
 
     usuario = Usuario(id_usuario, nombre, apellidos, email)
     registrado = biblioteca.registrar_usuario(usuario)
@@ -72,6 +84,34 @@ def registrar_usuario(biblioteca):
     else:
         print("---------")
         print(f"Ya existe un usuario con el ID {id_usuario}.")
+
+def listar_usuarios(biblioteca):
+    usuarios = biblioteca.listar_usuarios()
+
+    if not usuarios:
+        print("No hay usuarios registrados.")
+        return
+
+    print("\nUSUARIOS REGISTRADOS:")
+    for usuario in usuarios:
+        print(usuario)
+        print("---------")
+
+def gestionar_usuarios(biblioteca):
+    while True:
+        print("\n1. Registrar usuario")
+        print("2. Listar usuarios")
+        print("0. Volver")
+        opcion = input("Selecciona una opción: ").strip()
+
+        if opcion == "1":
+            registrar_usuario(biblioteca)
+        elif opcion == "2":
+            listar_usuarios(biblioteca)
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida.")
 
 def listar_libros(biblioteca):
     libros = biblioteca.listar_libros()
@@ -128,6 +168,7 @@ def mostrar_resultados(libros):
     else:
         print("No se encontraron libros.")
 
+# PRÉSTAMOS
 def realizar_prestamo(biblioteca):
     id_usuario = pedir_texto_obligatorio("ID del usuario: ")
     isbn = pedir_texto_obligatorio("ISBN del libro: ")
@@ -174,6 +215,27 @@ def mostrar_prestamos_activos(biblioteca):
         print(prestamo)
         print("---------")
 
+def mostrar_prestamos_de_usuario(biblioteca):
+    id_usuario = pedir_texto_obligatorio("ID del usuario: ")
+
+    usuario = biblioteca.buscar_usuario(id_usuario)
+
+    if usuario is None:
+        print("El usuario no existe.")
+        return
+
+    prestamos = biblioteca.listar_prestamos_de_usuario(id_usuario)
+
+    if not prestamos:
+        print("El usuario no tiene préstamos.")
+        return
+
+    print(f"\nPRÉSTAMOS DE {usuario.nombre} {usuario.apellidos}:")
+    for prestamo in prestamos:
+        print(prestamo)
+        print("---------")
+
+# PROGRAMA PRINCIPAL
 def main():
     biblioteca = Biblioteca()
 
@@ -184,8 +246,7 @@ def main():
             print("\n1. Registrar libro ---")
             registrar_libro(biblioteca)
         elif opcion == 2:
-            print(f"\n2. Registrar usuario")
-            registrar_usuario(biblioteca)
+            gestionar_usuarios(biblioteca)
         elif opcion == 3:
             print(f"\n3. Buscar libro")
             buscar_libro(biblioteca)
@@ -199,10 +260,11 @@ def main():
             print(f"\n6. Registrar devolución")
             registrar_devolucion(biblioteca)
         elif opcion == 7:
-            print(f"\n7. Cargando préstamos activos...")
+            print("\n7. Mostrando préstamos activos...")
             mostrar_prestamos_activos(biblioteca)
         elif opcion == 8:
-            pass
+            print("\n8. Mostrando préstamos de un usuario...")
+            mostrar_prestamos_de_usuario(biblioteca)
         elif opcion == 9:
             pass
         elif opcion == 0:

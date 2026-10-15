@@ -1,11 +1,12 @@
-from modelos.prestamo import Prestamo
 from datetime import date
+from modelos.prestamo import Prestamo
 
 class Biblioteca:
     def __init__(self):
         self.usuarios = []
         self.libros = []
         self.prestamos = []
+
     # MÉTODOS PARA LIBROS
     def registrar_libro(self, libro):
         """Este método realiza una comprobación por ISBN llamando al método de busqueda por isbn.
@@ -13,8 +14,8 @@ class Biblioteca:
         if self.buscar_libro_por_isbn(libro.isbn) is not None:
             return False
         self.libros.append(libro)
-        return True 
-    # Métodos de búsqueda de libros
+        return True
+
     def buscar_libro_por_isbn(self, isbn):
         """Busqueda de libro por ISBN por coincidencia exacta"""
         if not isbn:    # Protección por si el ISBN recibido es una cadena vacía
@@ -23,6 +24,7 @@ class Biblioteca:
             if libro.isbn == isbn:
                 return libro
         return None
+
     def buscar_libros_por_titulo(self, titulo):
         """Búsqueda de libros por título por coincidencia parcial (case insensitive)"""
         if not titulo:  # Protección para título vacío.
@@ -32,6 +34,7 @@ class Biblioteca:
             if titulo.casefold() in libro.titulo.casefold():
                 resultados.append(libro)
         return resultados
+
     def buscar_libros_por_autor(self, autor):
         """Búsqueda de libros por autor con coincidencia parcial (case insensitive)"""
         if not autor:   # Protección para autor vacío.
@@ -41,13 +44,22 @@ class Biblioteca:
             if autor.casefold() in libro.autor.casefold():
                 resultados.append(libro)
         return resultados
+
     def listar_libros(self):
         """Método para listar los libros registrados en la biblioteca.
         Devuelve una lista vacía si no hay libros registrados.
         La lista vacía equivale a None en el contexto de la función que llama este método.
         Equivale también a False."""
         return self.libros
+
     # MÉTODOS PARA USUARIOS
+    def registrar_usuario(self, usuario):
+        """Registra un usuario si su identificador todavía no existe."""
+        if self.buscar_usuario(usuario.id) is not None:
+            return False
+        self.usuarios.append(usuario)
+        return True
+
     def buscar_usuario(self, id_usuario):
         """Devuelve el objeto usuario si lo encuentra. Devuelve None si no lo encuentra.
         La búsqueda será por coincidencia exacta del identificador"""
@@ -55,11 +67,10 @@ class Biblioteca:
             if usuario.id == id_usuario:
                 return usuario
         return None
-    def registrar_usuario(self, usuario):   # Si el usuario existe devuelve False. Si no existe, se registra y devuelve True
-        if self.buscar_usuario(usuario.id) is not None:
-            return False
-        self.usuarios.append(usuario)
-        return True
+
+    def listar_usuarios(self):
+        return self.usuarios
+
     # MÉTODOS PARA PRESTAMOS
     def buscar_prestamo_activo(self, isbn):
         """Método auxiliar para buscar préstamos activos de un libro por ISBN
@@ -68,6 +79,19 @@ class Biblioteca:
             if prestamo.libro.isbn == isbn and prestamo.activo:
                 return prestamo
         return None
+
+    def listar_prestamos_activos(self):
+        return [
+            prestamo for prestamo in self.prestamos
+            if prestamo.activo
+        ]
+
+    def listar_prestamos_de_usuario(self, id_usuario):
+        return [
+            prestamo for prestamo in self.prestamos
+            if prestamo.usuario.id == id_usuario
+        ]
+
     def realizar_prestamo(self, usuario, libro):
 
         if usuario is None or libro is None:
@@ -100,8 +124,3 @@ class Biblioteca:
         prestamo.fecha_devolucion = date.today()
         prestamo.libro.disponible = True
         return True
-    def listar_prestamos_activos(self):
-        return [
-            prestamo for prestamo in self.prestamos
-            if prestamo.activo
-        ]

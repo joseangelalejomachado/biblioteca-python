@@ -129,39 +129,36 @@ def mostrar_resultados(libros):
         print("No se encontraron libros.")
 
 def realizar_prestamo(biblioteca):
-    id_usuario = pedir_texto_obligatorio("Ingrese el ID del usuario: ")
-    isbn = pedir_texto_obligatorio("Ingrese el ISBN del libro: ")
+    id_usuario = pedir_texto_obligatorio("ID del usuario: ")
+    isbn = pedir_texto_obligatorio("ISBN del libro: ")
 
     usuario = biblioteca.buscar_usuario(id_usuario)
+    libro = biblioteca.buscar_libro_por_isbn(isbn)
+
     if usuario is None:
         print("El usuario no existe.")
         return
 
-    libro = biblioteca.buscar_libro_por_isbn(isbn)
     if libro is None:
         print("El libro no existe.")
         return
 
-    if not libro.disponible:
-        print("El libro no está disponible.")
-        return
-
-    realizado = biblioteca.realizar_prestamo(usuario, libro)
-
-    if realizado:
+    if biblioteca.realizar_prestamo(usuario, libro):
         print("Préstamo realizado correctamente.")
     else:
-        print("No se pudo realizar el préstamo.")
-
+        print("No se puede realizar el préstamo.")
+        
 def registrar_devolucion(biblioteca):
-    isbn = pedir_texto_obligatorio("Ingrese el ISBN del libro: ")
+    isbn = pedir_texto_obligatorio("ISBN del libro: ")
 
-    registrado = biblioteca.registrar_devolucion(isbn)
+    libro = biblioteca.buscar_libro_por_isbn(isbn)
 
-    if registrado:
+    if libro is None:
+        print("El libro no existe.")
+    elif libro.disponible:
+        print("El libro no tiene un préstamo activo.")
+    elif biblioteca.registrar_devolucion(isbn):
         print("Devolución registrada correctamente.")
-    else:
-        print("No se pudo registrar la devolución.")
 
 def main():
     biblioteca = Biblioteca()

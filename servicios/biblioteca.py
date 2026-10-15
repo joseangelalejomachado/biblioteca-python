@@ -52,6 +52,18 @@ class Biblioteca:
         Equivale también a False."""
         return self.libros
 
+    def listar_libros_disponibles(self):
+        return [
+            libro for libro in self.libros
+            if libro.disponible
+        ]
+
+    def listar_libros_prestados(self):
+        return [
+            libro for libro in self.libros
+            if not libro.disponible
+        ]
+
     # MÉTODOS PARA USUARIOS
     def registrar_usuario(self, usuario):
         """Registra un usuario si su identificador todavía no existe."""

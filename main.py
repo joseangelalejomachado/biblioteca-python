@@ -114,14 +114,28 @@ def gestionar_usuarios(biblioteca):
             print("Opción no válida.")
 
 def listar_libros(biblioteca):
-    libros = biblioteca.listar_libros()
-    if libros:
-        print("\nLIBROS REGISTRADOS:")
-        for libro in libros:
-            print(libro)
-            print("---------")
-    else:
-        print("No hay libros registrados.")
+    while True:
+        print("\nLISTAR LIBROS")
+        print("1. Mostrar todos")
+        print("2. Mostrar disponibles")
+        print("3. Mostrar prestados")
+        print("0. Volver")
+
+        opcion = input("Selecciona una opción: ").strip()
+
+        if opcion == "1":
+            libros = biblioteca.listar_libros()
+        elif opcion == "2":
+            libros = biblioteca.listar_libros_disponibles()
+        elif opcion == "3":
+            libros = biblioteca.listar_libros_prestados()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción no válida.")
+            continue
+
+        mostrar_resultados(libros)
 
 def buscar_libro(biblioteca):
     while True:

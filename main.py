@@ -12,13 +12,13 @@ def pedir_texto_obligatorio(mensaje):
 
 def pedir_anio():
     while True:
-        anio_texto = input("Ingrese el año de publicación del libro como número (opcional): ").strip()
-
-        if not anio_texto:
-            return None
+        texto = input("Año de publicación: ").strip()
 
         try:
-            return int(anio_texto)
+            anio = int(texto)
+            if anio > 0:
+                return anio
+            print("El año debe ser positivo.")
         except ValueError:
             print("El año debe ser un número entero.")
 
@@ -147,7 +147,7 @@ def realizar_prestamo(biblioteca):
         print("Préstamo realizado correctamente.")
     else:
         print("No se puede realizar el préstamo.")
-        
+
 def registrar_devolucion(biblioteca):
     isbn = pedir_texto_obligatorio("ISBN del libro: ")
 
@@ -159,6 +159,8 @@ def registrar_devolucion(biblioteca):
         print("El libro no tiene un préstamo activo.")
     elif biblioteca.registrar_devolucion(isbn):
         print("Devolución registrada correctamente.")
+    else:
+        print("No se pudo registrar la devolución.")
 
 def main():
     biblioteca = Biblioteca()

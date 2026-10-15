@@ -93,10 +93,15 @@ class Biblioteca:
 
     def registrar_devolucion(self, isbn):
         prestamo = self.buscar_prestamo_activo(isbn)
-    
+
         if prestamo is None:
             return False
-    
+
         prestamo.fecha_devolucion = date.today()
         prestamo.libro.disponible = True
         return True
+    def listar_prestamos_activos(self):
+        return [
+            prestamo for prestamo in self.prestamos
+            if prestamo.activo
+        ]

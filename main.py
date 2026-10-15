@@ -162,6 +162,18 @@ def registrar_devolucion(biblioteca):
     else:
         print("No se pudo registrar la devolución.")
 
+def mostrar_prestamos_activos(biblioteca):
+    prestamos = biblioteca.listar_prestamos_activos()
+
+    if not prestamos:
+        print("No hay préstamos activos.")
+        return
+
+    print("\nPRÉSTAMOS ACTIVOS:")
+    for prestamo in prestamos:
+        print(prestamo)
+        print("---------")
+
 def main():
     biblioteca = Biblioteca()
 
@@ -187,7 +199,8 @@ def main():
             print(f"\n6. Registrar devolución")
             registrar_devolucion(biblioteca)
         elif opcion == 7:
-            pass
+            print(f"\n7. Cargando préstamos activos...")
+            mostrar_prestamos_activos(biblioteca)
         elif opcion == 8:
             pass
         elif opcion == 9:

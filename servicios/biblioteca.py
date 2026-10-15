@@ -69,29 +69,34 @@ class Biblioteca:
                 return prestamo
         return None
     def realizar_prestamo(self, usuario, libro):
+
         if usuario is None or libro is None:
             return False
-        if not libro.disponible:
-            return False
-        if self.buscar_prestamo_activo(libro.isbn) is not None:
+
+        usuario_registrado = self.buscar_usuario(usuario.id)
+        libro_registrado = self.buscar_libro_por_isbn(libro.isbn)
+
+        if usuario_registrado is None or libro_registrado is None:
             return False
 
-        prestamo = Prestamo(usuario, libro)
+        if not libro_registrado.disponible:
+            return False
+
+        if self.buscar_prestamo_activo(libro_registrado.isbn) is not None:
+            return False
+
+        prestamo = Prestamo(usuario_registrado, libro_registrado)
         self.prestamos.append(prestamo)
-        libro.disponible = False
+        libro_registrado.disponible = False
+
         return True
+
     def registrar_devolucion(self, isbn):
-        libro = self.buscar_libro_por_isbn(isbn)
-
-        if libro is None:
-            return False
-
         prestamo = self.buscar_prestamo_activo(isbn)
-
+    
         if prestamo is None:
             return False
-
+    
         prestamo.fecha_devolucion = date.today()
-        libro.disponible = True
-
+        prestamo.libro.disponible = True
         return True

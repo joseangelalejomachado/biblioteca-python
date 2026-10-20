@@ -283,6 +283,7 @@ def main():
             pass
         elif opcion == 0:
             print("Saliendo del programa...")
+            biblioteca.guardar_usuarios()
             break
         else:
             print("Opción inválida. Intente nuevamente.")

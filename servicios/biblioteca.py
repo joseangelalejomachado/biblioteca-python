@@ -1,11 +1,18 @@
 from datetime import date
 from modelos.prestamo import Prestamo
+from servicios.ficheros import *
 
 class Biblioteca:
     def __init__(self):
         self.usuarios = []
         self.libros = []
         self.prestamos = []
+
+    # MÉTODOS DE GUARDADO
+    def guardar_usuarios(self):
+        for usuario in self.usuarios:
+            guardar_usuarios(usuario)
+    # MÉTODOS DE CARGA
 
     # MÉTODOS PARA LIBROS
     def registrar_libro(self, libro):

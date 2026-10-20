@@ -1,9 +1,17 @@
 import json
 from pathlib import Path
+from servicios import Biblioteca
+
 
 RUTA_USUARIOS = Path("../datos/usuarios.json")
 RUTA_PRESTAMOS = Path("../datos/prestamos.json")
 RUTA_LIBROS = Path("../datos/libros.json")
+
+# Crear métodos de conversión a diccionario para cada clase (Usuario, Libro, Prestamo)
+
+# Creamos un guardar_biblioteca que llame a método guardar_json tres veces,
+# para cada tipo de objeto (usuarios, libros y préstamos)
+# Dentro de cada guardar_json se llama al método de conversión
 
 def guardar_usuarios(objeto_usuario):
     if not RUTA_USUARIOS.exists():

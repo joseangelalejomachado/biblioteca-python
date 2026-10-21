@@ -4,6 +4,7 @@ from modelos.libro import Libro
 from modelos.usuario import Usuario
 from modelos.prestamo import Prestamo
 from servicios.biblioteca import Biblioteca
+from datetime import date
 
 FICHERO_LIBROS = "datos/libros_prueba.json"
 FICHERO_USUARIOS = "datos/usuarios_prueba.json"
@@ -41,7 +42,7 @@ def cargar_datos(biblioteca: Biblioteca):
         libros = json.load(fichero)
 
     for libro in libros:
-        libro_obj = Libro(libro["isbn"], libro["titulo"], libro["autor"], libro["anio"], libro["genero"], libro["disponible"])
+        libro_obj = Libro(libro["isbn"], libro["titulo"], libro["autor"], libro["genero"], libro["anio"], libro["disponible"])
         biblioteca.libros.append(libro_obj)
 
     with open(FICHERO_USUARIOS, "r", encoding="utf-8") as fichero:
@@ -63,8 +64,9 @@ def cargar_datos(biblioteca: Biblioteca):
         if libro_obj is None:
             raise ValueError(f"Lbro con ISBN {prestamo['libro']} no encontrado.")
             return
-
-        prestamo_obj = biblioteca.buscar_libro_por_isbn(prestamo["libro"])
+        fecha_prestamo = date.fromisoformat(prestamo["fecha_prestamo"])
+        fecha_devolucion = date.fromisoformat(prestamo["fecha_devolucion"]) if prestamo["fecha_devolucion"] is not None else None
+        prestamo_obj = Prestamo(usuario_obj, libro_obj, fecha_prestamo, fecha_devolucion)
         biblioteca.prestamos.append(prestamo_obj)
 
 

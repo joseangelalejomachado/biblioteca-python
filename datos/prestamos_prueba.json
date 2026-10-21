@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "usuario": "usuario1",
+        "libro": "libro1",
+        "fecha_prestamo": "2026-10-21",
+        "fecha_devolucion": null
+    }
+]

@@ -3,8 +3,8 @@
         "isbn": "libro1",
         "titulo": "titulo1",
         "autor": "autor1",
-        "anio": "genero1",
-        "genero": 2003,
+        "anio": 2003,
+        "genero": "genero1",
         "disponible": false
     }
 ]

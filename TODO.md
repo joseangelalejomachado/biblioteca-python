@@ -52,3 +52,27 @@ Estas comprobaciones están cubiertas por la lógica actual y deben verificarse 
 ## Pruebas automatizadas
 
 Sería interesante implementar pruebas automatizadas para comprobar que la lógica funciona correctamente.
+
+- TODO: Agregar error al realizar devolucion
+
+```powershell
+6. Registrar devolución
+ISBN del libro: libro1
+Traceback (most recent call last):
+  File "C:\Users\José Ángel\gitrepositories\DAW\biblioteca-python\main.py", line 299, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\José Ángel\gitrepositories\DAW\biblioteca-python\main.py", line 278, in main
+    registrar_devolucion(biblioteca)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\José Ángel\gitrepositories\DAW\biblioteca-python\main.py", line 217, in registrar_devolucion
+    elif biblioteca.registrar_devolucion(isbn):
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\José Ángel\gitrepositories\DAW\biblioteca-python\servicios\biblioteca.py", line 146, in registrar_devolucion
+    prestamo = self.buscar_prestamo_activo(isbn)
+  File "C:\Users\José Ángel\gitrepositories\DAW\biblioteca-python\servicios\biblioteca.py", line 106, in buscar_prestamo_activo
+    if prestamo.libro.isbn == isbn and prestamo.activo:
+       ^^^^^^^^^^^^^^
+AttributeError: 'Libro' object has no attribute 'libro'
+PS C:\Users\José Ángel\gitrepositories\DAW\biblioteca-python> 
+```

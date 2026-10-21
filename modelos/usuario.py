@@ -15,3 +15,11 @@ class Usuario:
             f"apellidos={self.apellidos!r}, "
             f"email={self.email!r})"
         )
+
+    def to_dict(self):
+        return {
+            "id_usuario": self.id,
+            "nombre": self.nombre,
+            "apellidos": self.apellidos,
+            "email": self.email
+        }

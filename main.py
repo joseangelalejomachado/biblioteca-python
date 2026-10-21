@@ -1,6 +1,8 @@
 from modelos.libro import Libro
 from modelos.usuario import Usuario
 from servicios.biblioteca import Biblioteca
+from servicios.guarda import guardar_datos
+from servicios.guarda import cargar_datos
 
 # ENTRADA Y VALIDACIÓN
 def pedir_texto_obligatorio(mensaje):
@@ -253,6 +255,7 @@ def mostrar_prestamos_de_usuario(biblioteca):
 def main():
     biblioteca = Biblioteca()
 
+    cargar_datos(biblioteca)
     while True:
         opcion = menu()
 
@@ -280,10 +283,12 @@ def main():
             print("\n8. Mostrando préstamos de un usuario...")
             mostrar_prestamos_de_usuario(biblioteca)
         elif opcion == 9:
-            pass
+            print("Guardando datos...")
+            guardar_datos(biblioteca)
         elif opcion == 0:
             print("Saliendo del programa...")
-            biblioteca.guardar_usuarios()
+            #biblioteca.guardar_usuarios()
+            guardar_datos(biblioteca)
             break
         else:
             print("Opción inválida. Intente nuevamente.")

@@ -1,0 +1,10 @@
+[
+    {
+        "isbn": "libro1",
+        "titulo": "titulo1",
+        "autor": "autor1",
+        "anio": "genero1",
+        "genero": 2003,
+        "disponible": false
+    }
+]

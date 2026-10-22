@@ -6,5 +6,13 @@
         "anio": 2003,
         "genero": "genero1",
         "disponible": true
+    },
+    {
+        "isbn": "libro2",
+        "titulo": "titulo2",
+        "autor": "autor2",
+        "anio": 20010,
+        "genero": "genero2",
+        "disponible": false
     }
 ]

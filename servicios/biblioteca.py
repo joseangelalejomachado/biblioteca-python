@@ -151,3 +151,13 @@ class Biblioteca:
         prestamo.fecha_devolucion = date.today()
         prestamo.libro.disponible = True
         return True
+
+    def mostrar_estadisticas(self):
+        """Esta funcion mostrara la cantidad de usuarios, prestamos y prestamos activos"""
+        cantidad_usuarios = len(self.usuarios)
+        cantidad_prestamos = len(self.prestamos)
+        prestamos_activos = self.listar_prestamos_activos()
+        print(f"Cantidad de usuarios: {cantidad_usuarios}")
+        print(f"Cantidad de prestamos: {cantidad_prestamos}")
+        cantidad_prestamos_activos = len(prestamos_activos)
+        print(f"Cantidad de prestamos activos: {cantidad_prestamos_activos}")

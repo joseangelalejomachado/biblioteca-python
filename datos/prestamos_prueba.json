@@ -4,5 +4,11 @@
         "libro": "libro1",
         "fecha_prestamo": "2026-10-21",
         "fecha_devolucion": "2026-10-21"
+    },
+    {
+        "usuario": "usuario2",
+        "libro": "libro2",
+        "fecha_prestamo": "2026-10-22",
+        "fecha_devolucion": null
     }
 ]

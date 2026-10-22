@@ -4,5 +4,11 @@
         "nombre": "nombre1",
         "apellidos": "apellido1",
         "email": "email2@gmail.com"
+    },
+    {
+        "id_usuario": "usuario2",
+        "nombre": "nombre2",
+        "apellidos": "apellido2",
+        "email": "emailusuario2@gmail.com"
     }
 ]

@@ -48,15 +48,16 @@ def menu():
     print(f"    7. Mostrar préstamos activos")
     print(f"    8. Mostrar préstamos de un usuario")
     print(f"    9. Guardar datos")
+    print(f"    10. Mostrar estadisticas")
     print(f"    0. Salir")
     while True:
         try:
             opcion = int(input("\nSeleccione una opción: "))
-            if 0 <= opcion <= 9:
+            if 0 <= opcion <= 10:
                 return opcion
-            print("Opción inválida. Introduzca un número del 0 al 9.")
+            print("Opción inválida. Introduzca un número del 0 al 10.")
         except ValueError:
-            print("Opción inválida. Introduzca un número del 0 al 9.")
+            print("Opción inválida. Introduzca un número del 0 al 10.")
 
 # LIBROS
 def registrar_libro(biblioteca):
@@ -251,6 +252,9 @@ def mostrar_prestamos_de_usuario(biblioteca):
         print(prestamo)
         print("---------")
 
+def mostrar_estadisticas(biblioteca):
+    biblioteca.mostrar_estadisticas()
+
 # PROGRAMA PRINCIPAL
 def main():
     biblioteca = Biblioteca()
@@ -285,6 +289,9 @@ def main():
         elif opcion == 9:
             print("Guardando datos...")
             guardar_datos(biblioteca)
+        elif opcion == 10:
+            print("Mostrando estadísticas: ")
+            mostrar_estadisticas(biblioteca)
         elif opcion == 0:
             print("Saliendo del programa...")
             #biblioteca.guardar_usuarios()
